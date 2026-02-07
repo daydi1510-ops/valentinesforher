@@ -1,45 +1,196 @@
+Here’s a **fresh, more creative + colorful Valentine theme** (but still **simple**: one question, **Yes/No**, **No runs away**, **Yes opens a cute popup**). No HP/coins/levels. No “tip” lines.
+
+Copy-paste this as your repo’s **`index.html`**:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Will you be my Valentine? 💖</title>
+
+  <!-- Optional cute font (safe) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+
   <style>
+    :root{
+      --pink:#ff4fae;
+      --hot:#ff2e63;
+      --peach:#ffd1dc;
+      --lav:#c7b6ff;
+      --sky:#76d6ff;
+      --mint:#66ffcf;
+      --ink:#121225;
+      --card:rgba(255,255,255,.14);
+      --stroke:rgba(255,255,255,.22);
+      --shadow: 0 24px 80px rgba(0,0,0,.35);
+      --radius: 22px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+
     body{
       margin:0;
-      height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a1c4fd);
+      font-family: "Nunito", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      overflow:hidden;
+      color:#fff;
+
+      background:
+        radial-gradient(900px 500px at 10% 15%, rgba(255,79,174,.35), transparent 60%),
+        radial-gradient(900px 600px at 90% 15%, rgba(118,214,255,.28), transparent 55%),
+        radial-gradient(900px 700px at 50% 100%, rgba(102,255,207,.18), transparent 55%),
+        linear-gradient(135deg, #2a0d2b, #0b1b3a);
+    }
+
+    /* cute bokeh glow */
+    .glow{
+      position:fixed; inset:-80px;
+      pointer-events:none;
+      background:
+        radial-gradient(240px 240px at 25% 30%, rgba(255,211,220,.20), transparent 60%),
+        radial-gradient(280px 280px at 70% 35%, rgba(199,182,255,.16), transparent 60%),
+        radial-gradient(240px 240px at 55% 75%, rgba(118,214,255,.14), transparent 60%);
+      filter: blur(10px);
+      opacity: 1;
+    }
+
+    /* floating hearts */
+    .hearts{
+      position:fixed; inset:0;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    .h{
+      position:absolute;
+      font-size: 18px;
+      opacity:.75;
+      filter: drop-shadow(0 6px 18px rgba(255,79,174,.18));
+      animation: floatUp linear infinite;
+      user-select:none;
+    }
+    @keyframes floatUp{
+      from{ transform: translateY(110vh) translateX(0) rotate(0deg); }
+      to  { transform: translateY(-18vh) translateX(14px) rotate(10deg); }
+    }
+
+    /* center */
+    .wrap{
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding: 22px;
+      position:relative;
+    }
+
+    .card{
+      width:min(720px, 92vw);
+      background: var(--card);
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      padding: 26px 24px 22px;
+      position:relative;
       overflow:hidden;
     }
 
-    .box{
-      background: rgba(255,255,255,0.85);
-      padding: 28px 26px;
-      border-radius: 18px;
+    /* subtle glitter line */
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(800px 240px at 20% 0%, rgba(255,79,174,.25), transparent 60%),
+        radial-gradient(800px 240px at 90% 100%, rgba(118,214,255,.18), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+
+    .top{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 14px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.08);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing:.2px;
+    }
+    .dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: linear-gradient(135deg, var(--pink), var(--sky));
+      box-shadow: 0 0 0 2px rgba(0,0,0,.25);
+    }
+
+    .title{
+      position:relative;
+      margin: 10px 0 6px;
+      font-family: "Pacifico", cursive;
+      font-size: clamp(34px, 5vw, 54px);
+      font-weight: 400;
+      line-height: 1.05;
       text-align:center;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
-      width: min(520px, 90vw);
+      text-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
-
-    h1{
-      margin: 0 0 10px;
-      font-size: 28px;
-      color:#222;
-    }
-
-    p{
+    .subtitle{
+      position:relative;
       margin: 0 0 22px;
-      color:#444;
-      font-size: 16px;
+      text-align:center;
+      opacity:.92;
+      font-size: clamp(14px, 2.2vw, 18px);
+      line-height: 1.35;
     }
 
-    .buttons{
-      position: relative;
-      height: 64px;
+    .questionBox{
+      position:relative;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 18px 16px;
+      text-align:center;
+      overflow:hidden;
+    }
+    .questionBox::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        linear-gradient(90deg,
+          rgba(255,79,174,.18),
+          rgba(118,214,255,.10),
+          rgba(102,255,207,.10),
+          rgba(255,79,174,.18));
+      filter: blur(18px);
+      opacity:.75;
+      pointer-events:none;
+    }
+    .questionText{
+      position:relative;
+      z-index:1;
+      font-size: clamp(18px, 2.6vw, 22px);
+      font-weight: 800;
+      letter-spacing:.2px;
+      margin:0;
+    }
+
+    .btnArea{
+      position:relative;
+      margin-top: 18px;
+      height: 78px;
       display:flex;
       justify-content:center;
       align-items:center;
@@ -48,124 +199,225 @@
 
     button{
       border:none;
-      padding: 14px 22px;
-      border-radius: 14px;
-      font-size: 16px;
       cursor:pointer;
-      font-weight: 700;
-      transition: transform .12s ease;
+      font-family: inherit;
+      font-weight: 900;
+      font-size: 16px;
+      padding: 14px 22px;
+      border-radius: 16px;
+      transition: transform .12s ease, filter .12s ease;
+      box-shadow: 0 14px 0 rgba(0,0,0,.25);
+      letter-spacing:.4px;
     }
-    button:active{ transform: scale(0.98); }
+    button:hover{ filter: brightness(1.05) saturate(1.1); }
+    button:active{ transform: translateY(6px); box-shadow: 0 8px 0 rgba(0,0,0,.25); }
 
     #yes{
-      background:#22c55e;
-      color:white;
+      background: linear-gradient(135deg, #7cffb0, #63c7ff);
+      color:#07111e;
     }
 
     #no{
-      background:#ff4d6d;
-      color:white;
-      position:absolute; /* allows moving */
-      left: 58%;
+      background: linear-gradient(135deg, #ff3b7c, #ff76c6);
+      color:#230313;
+      position:absolute; /* so it can move */
+      left: 56%;
       top: 0;
     }
 
-    /* simple popup */
-    .popup{
-      position:fixed;
-      inset:0;
+    /* tiny footer hearts row */
+    .miniRow{
+      position:relative;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin-top: 14px;
+      opacity:.9;
+      font-size: 18px;
+    }
+
+    /* popup */
+    .overlay{
+      position:fixed; inset:0;
       display:none;
       align-items:center;
       justify-content:center;
-      background: rgba(0,0,0,0.35);
       padding: 18px;
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(10px);
+      z-index: 20;
     }
-    .popupContent{
-      background: white;
-      border-radius: 18px;
-      padding: 22px 20px;
-      width:min(420px, 92vw);
+    .modal{
+      width:min(520px, 94vw);
+      background: rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.22);
+      border-radius: 22px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.45);
+      padding: 22px 18px 18px;
       text-align:center;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      position:relative;
+      overflow:hidden;
     }
-    .popupContent h2{
-      margin: 0 0 10px;
-      font-size: 22px;
-      color:#222;
+    .modal::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 240px at 20% 0%, rgba(255,79,174,.28), transparent 60%),
+        radial-gradient(700px 240px at 90% 100%, rgba(118,214,255,.20), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
     }
-    .popupContent p{
+    .modal > *{ position:relative; z-index:1; }
+
+    .modal h2{
+      margin: 6px 0 8px;
+      font-family: "Pacifico", cursive;
+      font-size: 34px;
+      font-weight: 400;
+    }
+    .modal p{
       margin: 0 0 16px;
-      color:#444;
+      font-size: 16px;
       line-height: 1.45;
+      opacity:.95;
     }
-    .close{
-      background:#111827;
-      color:white;
+
+    .closeBtn{
+      background: linear-gradient(135deg, #ffd1dc, #c7b6ff);
+      color:#111;
+      box-shadow: 0 14px 0 rgba(0,0,0,.25);
       padding: 12px 16px;
-      border-radius: 12px;
+      border-radius: 16px;
       font-size: 14px;
-      font-weight:700;
+    }
+
+    /* small sparkle */
+    .sparkle{
+      position:absolute;
+      inset:auto;
+      width:10px;height:10px;
+      border-radius: 4px;
+      background: rgba(255,255,255,.9);
+      opacity:.0;
+      filter: blur(.2px);
+      animation: sparkle 2.2s ease-in-out infinite;
+    }
+    @keyframes sparkle{
+      0%,100%{ transform: scale(.8) rotate(0deg); opacity: .0; }
+      40%{ opacity:.7; }
+      50%{ transform: scale(1.2) rotate(8deg); opacity: .9; }
+      60%{ opacity:.7; }
     }
   </style>
 </head>
 <body>
+  <div class="glow"></div>
+  <div class="hearts" id="hearts"></div>
 
-  <div class="box">
-    <h1>Will you be my Valentine? 💘</h1>
-    <p>Please say yes 🥺</p>
+  <div class="wrap">
+    <div class="card">
+      <div class="top">
+        <div class="pill"><span class="dot"></span> Valentine Surprise</div>
+        <div class="pill">💌 For You</div>
+      </div>
 
-    <div class="buttons" id="area">
-      <button id="yes">Yes</button>
-      <button id="no">No</button>
+      <h1 class="title">Will you be my Valentine?</h1>
+      <div class="subtitle">I promise I’ll make you smile today 💖</div>
+
+      <div class="questionBox">
+        <p class="questionText">So… will you say “Yes”? 🥺🌸</p>
+      </div>
+
+      <div class="btnArea" id="area">
+        <button id="yes">Yes 💗</button>
+        <button id="no">No 🙈</button>
+      </div>
+
+      <div class="miniRow" aria-hidden="true">💞 💘 💝 💗 💓</div>
+
+      <!-- a few sparkles -->
+      <span class="sparkle" style="top:18px; left:18px; animation-delay:.1s"></span>
+      <span class="sparkle" style="top:54px; right:26px; animation-delay:.7s"></span>
+      <span class="sparkle" style="bottom:26px; left:34px; animation-delay:1.2s"></span>
+      <span class="sparkle" style="bottom:18px; right:18px; animation-delay:1.8s"></span>
     </div>
   </div>
 
-  <div class="popup" id="popup">
-    <div class="popupContent">
+  <!-- Popup -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
       <h2>Yay!! 💖</h2>
       <p>
-        You just made me so happy 🥺✨<br/>
-        Can’t wait for our date 🌸
+        You just made my heart so happy 🥺✨<br/>
+        Okay… now we have to go on a date 🌸🍓
       </p>
-      <button class="close" id="close">Okay 💞</button>
+      <button class="closeBtn" id="close">Okay 💞</button>
     </div>
   </div>
 
   <script>
+    // Floating hearts in background (colorful)
+    const heartIcons = ["💗","💖","💘","💝","💓","💜","💙","💛","💚"];
+    const hearts = document.getElementById("hearts");
+
+    for (let i = 0; i < 22; i++){
+      const el = document.createElement("div");
+      el.className = "h";
+      el.textContent = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+      el.style.left = (Math.random() * 100) + "vw";
+      el.style.animationDuration = (7 + Math.random() * 8) + "s";
+      el.style.animationDelay = (-Math.random() * 10) + "s";
+      el.style.fontSize = (14 + Math.random() * 26) + "px";
+      el.style.opacity = (0.35 + Math.random() * 0.55).toFixed(2);
+      hearts.appendChild(el);
+    }
+
     const noBtn = document.getElementById("no");
     const yesBtn = document.getElementById("yes");
     const area  = document.getElementById("area");
-    const popup = document.getElementById("popup");
-    const close = document.getElementById("close");
+    const overlay = document.getElementById("overlay");
+    const closeBtn = document.getElementById("close");
 
     function moveNo(){
       const a = area.getBoundingClientRect();
       const b = noBtn.getBoundingClientRect();
 
-      // stay inside the buttons area
+      // keep inside the button area
       const maxX = a.width - b.width;
       const maxY = a.height - b.height;
 
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+      const x = Math.random() * Math.max(0, maxX);
+      const y = Math.random() * Math.max(0, maxY);
 
       noBtn.style.left = x + "px";
       noBtn.style.top  = y + "px";
+      noBtn.style.transform = "none";
     }
 
-    // No runs away
+    // NO runs away
     noBtn.addEventListener("mouseenter", moveNo);
-    noBtn.addEventListener("click", (e) => { e.preventDefault(); moveNo(); });
+    noBtn.addEventListener("click", (e)=>{ e.preventDefault(); moveNo(); });
     noBtn.addEventListener("touchstart", moveNo, { passive:true });
 
-    // Yes opens popup
-    yesBtn.addEventListener("click", () => {
-      popup.style.display = "flex";
+    // YES opens popup
+    yesBtn.addEventListener("click", ()=>{
+      overlay.style.display = "flex";
     });
 
-    close.addEventListener("click", () => {
-      popup.style.display = "none";
+    closeBtn.addEventListener("click", ()=>{
+      overlay.style.display = "none";
+    });
+
+    // close popup if user clicks outside the modal
+    overlay.addEventListener("click", (e)=>{
+      if (e.target === overlay) overlay.style.display = "none";
     });
   </script>
 </body>
 </html>
+```
+
+If you want, I can also:
+
+* change the popup text to **your exact words**, or
+* add a **tiny photo** (like a heart icon / couple illustration) without making it “game-like”.
